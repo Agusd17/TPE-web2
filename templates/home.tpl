@@ -48,18 +48,18 @@
                                 {/if}
                             </div>
                         </div>
-                        {if (isset($smarty.session.USER_ROLE) && $smarty.session.USER_ROLE == '1')}
                         <hr>
                         <div class="row">
                             <div class="actions">
                                 <div class="col-sm-12">
                                     <a class="btn  btn-sm" href="ver/{$single->id}">VER</a>
+                                    {if (isset($smarty.session.USER_ROLE) && $smarty.session.USER_ROLE == '1')}
                                     <a class="btn  btn-sm" href="modificar_single/{$single->id}">MODIFICAR</a>
                                     <a class="btn danger btn-sm" href="delete_single/{$single->id}">ELIMINAR</a>
+                                    {/if}
                                 </div>
                             </div>
                         </div>
-                        {/if}
                     </div>
                     {/foreach}
                 </div>

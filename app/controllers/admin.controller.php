@@ -15,18 +15,25 @@ class AdminController {
         $this->view = new AdminView();
         // inicio la sesion cuando inicio el controlador, para poder chequear los permisos
         session_start();
+        $this->checkIfAdmin();
     }
 
+    function checkIfAdmin() {
+        
+        $categorias = $this->catModel->getAll();
+        if (!isset($_SESSION['USER_ROLE']) || $_SESSION['USER_ROLE'] != '1') {
+            $this->view->showError('No posee permisos para acceder a esta sección', $categorias);
+            die;
+        }
+        
+    }
+    
     function showPanel() {
-
+        
         $inmuebles = $this->inmModel->getAll();
         $categorias = $this->catModel->getAll();
-        
-        if (isset($_SESSION['USER_ROLE']) && $_SESSION['USER_ROLE'] == '1') {
-            $this->view->showPanel($inmuebles, $categorias);
-        } else {
-            $this->view->showError('No posee permisos para acceder a esta sección', $categorias);
-        }
+
+        $this->view->showPanel($inmuebles, $categorias);
     }
     
     /**

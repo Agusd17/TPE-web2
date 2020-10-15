@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-10-15 10:28:12
+/* Smarty version 3.1.34-dev-7, created on 2020-10-16 00:05:52
   from 'C:\xampp\htdocs\TPWeb\templates\panel_admin.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5f88081c212669_60243773',
+  'unifunc' => 'content_5f88c7c0437136_30837232',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'edd80f66dac47eaffca6003190853f02207daaea' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TPWeb\\templates\\panel_admin.tpl',
-      1 => 1602750411,
+      1 => 1602799413,
       2 => 'file',
     ),
   ),
@@ -24,7 +24,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ),false)) {
-function content_5f88081c212669_60243773 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5f88c7c0437136_30837232 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender('file:header.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 
@@ -129,8 +129,10 @@ $_smarty_tpl->tpl_vars['cat']->do_else = false;
                                 <div class="col-sm-12 col-md-5 text-right">
                                     <a class="btn btn-info btn-sm" href="modificar_cat/<?php echo $_smarty_tpl->tpl_vars['cat']->value->id;?>
 ">MODIFICAR</a>
-                                    <a class="btn btn-danger btn-sm" href="eliminar_cat/<?php echo $_smarty_tpl->tpl_vars['cat']->value->id;?>
-">ELIMINAR</a>
+                                    <a class="btn btn-danger btn-sm" 
+                                        onclick="if (confirm('¡CUIDADO! Se eliminarán también todos los registros asociados a la categoría')) window.location.href='eliminar_cat/<?php echo $_smarty_tpl->tpl_vars['cat']->value->id;?>
+'">
+                                        ELIMINAR</a>
                                 </div>
                             </div>
                             <?php

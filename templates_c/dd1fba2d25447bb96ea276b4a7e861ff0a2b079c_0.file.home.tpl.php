@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-10-15 10:45:29
+/* Smarty version 3.1.34-dev-7, created on 2020-10-16 00:20:20
   from 'C:\xampp\htdocs\TPWeb\templates\home.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5f880c2983b6f9_84855354',
+  'unifunc' => 'content_5f88cb2400aec6_22229287',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'dd1fba2d25447bb96ea276b4a7e861ff0a2b079c' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TPWeb\\templates\\home.tpl',
-      1 => 1602750395,
+      1 => 1602800416,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ),false)) {
-function content_5f880c2983b6f9_84855354 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5f88cb2400aec6_22229287 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender('file:header.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 
@@ -91,21 +91,21 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                                 <?php }?>
                             </div>
                         </div>
-                        <?php if (((isset($_SESSION['USER_ROLE'])) && $_SESSION['USER_ROLE'] == '1')) {?>
                         <hr>
                         <div class="row">
                             <div class="actions">
                                 <div class="col-sm-12">
                                     <a class="btn  btn-sm" href="ver/<?php echo $_smarty_tpl->tpl_vars['single']->value->id;?>
 ">VER</a>
+                                    <?php if (((isset($_SESSION['USER_ROLE'])) && $_SESSION['USER_ROLE'] == '1')) {?>
                                     <a class="btn  btn-sm" href="modificar_single/<?php echo $_smarty_tpl->tpl_vars['single']->value->id;?>
 ">MODIFICAR</a>
                                     <a class="btn danger btn-sm" href="delete_single/<?php echo $_smarty_tpl->tpl_vars['single']->value->id;?>
 ">ELIMINAR</a>
+                                    <?php }?>
                                 </div>
                             </div>
                         </div>
-                        <?php }?>
                     </div>
                     <?php
 }
