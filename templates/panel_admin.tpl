@@ -82,7 +82,9 @@
                                 </div>
                                 <div class="col-sm-12 col-md-5 text-right">
                                     <a class="btn btn-info btn-sm" href="modificar_cat/{$cat->id}">MODIFICAR</a>
-                                    <a class="btn btn-danger btn-sm" href="eliminar_cat/{$cat->id}">ELIMINAR</a>
+                                    <a class="btn btn-danger btn-sm" 
+                                        onclick="if (confirm('¡CUIDADO! Se eliminarán también todos los registros asociados a la categoría')) window.location.href='eliminar_cat/{$cat->id}'">
+                                        ELIMINAR</a>
                                 </div>
                             </div>
                             {/foreach}
