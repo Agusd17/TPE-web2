@@ -1,6 +1,7 @@
 <?php
-include_once 'app/controllers/main.controller.php';
 include_once 'app/controllers/auth.controller.php';
+include_once 'app/controllers/main.controller.php';
+include_once 'app/controllers/admin.controller.php';
 
 
 // defino la base url para la construccion de links con urls semánticas
@@ -31,7 +32,7 @@ switch ($params[0]) {
         $controller->verifyUser();
         break;
     case 'panel':
-        $controller = new MainController();
+        $controller = new AdminController();
         $controller->showPanel();
         break;
     case 'home':
@@ -44,30 +45,30 @@ switch ($params[0]) {
         $controller->showCat($cat);
         break;
     case 'insertar_cat':
-        $controller = new MainController();
+        $controller = new AdminController();
         $controller->addCat();
         break;
     case 'modificar_cat':
-        $controller = new MainController();
+        $controller = new AdminController();
         $id = $params[1];
         $controller->panelModCat($id);
         break;
     case 'eliminar_cat': // eliminar/:ID
-        $controller = new MainController();
+        $controller = new AdminController();
         $id = $params[1];
         $controller->deleteCat($id);
         break;
     case 'new_single':
-        $controller = new MainController();
+        $controller = new AdminController();
         $controller->addSingle();
         break;
     case 'modificar_single':
-        $controller = new MainController();
+        $controller = new AdminController();
         $id = $params[1];
         $controller->panelModInm($id);
         break;
     case 'delete_single':
-        $controller = new MainController();
+        $controller = new AdminController();
         $id = $params[1];
         $controller->deleteSingle($id);
         break;
@@ -77,12 +78,12 @@ switch ($params[0]) {
         $controller->showDetail($id);
         break;
     case 'modInm':
-        $controller = new MainController();
+        $controller = new AdminController();
         $id = $params[1];
         $controller->updateSingle($id);
         break;
     case 'modCat':
-        $controller = new MainController();
+        $controller = new AdminController();
         $id = $params[1];
         var_dump($_POST);
         $nombre = $_POST['nombre_cat'];

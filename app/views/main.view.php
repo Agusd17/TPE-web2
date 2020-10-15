@@ -5,13 +5,6 @@ require_once('libs/smarty/libs/Smarty.class.php');
 class MainView {
 
 
-    function showPanel($inmuebles, $categorias) {
-        
-        $smarty = new Smarty();
-        $smarty->assign('inmuebles', $inmuebles);
-        $smarty->assign('categorias', $categorias);
-        $smarty->display('templates/panel_admin.tpl');
-    }
 
     function showAll($inmuebles, $categorias) {
 
@@ -49,22 +42,6 @@ class MainView {
         }
         $smarty->display('templates/category.tpl');
         
-    }
-
-    function showModInm($inmueble, $category, $categorias) {
-        $smarty = new Smarty();
-        $smarty->assign('modInm', true);
-        $smarty->assign('inmueble', $inmueble);
-        $smarty->assign('categoria', $category);
-        $smarty->assign('categorias', $categorias);
-        $smarty->display('templates/panel_modify.tpl');
-    }
-
-    function showModCat($category) {
-        $smarty = new Smarty();
-        $smarty->assign('modCat', true);
-        $smarty->assign('categoria', $category);
-        $smarty->display('templates/panel_modify.tpl');
     }
 
     /**
