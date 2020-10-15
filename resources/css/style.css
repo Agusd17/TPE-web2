@@ -1,0 +1,107 @@
+.bg-main {
+    background:rgb(40,40,40);
+}
+.container {
+    min-height: 80vh;
+}
+.container-fluid {
+    min-height: 80vh;
+}
+.single-venta {
+    background-color: rgba(25, 59, 25, 0.733);
+    width:100%;
+    padding:2px;
+    color:white;
+    font-size:15px;
+    text-transform: uppercase;
+}
+.single-alquiler {
+    background-color:rgba(19, 32, 92, 0.733);
+    width:100%;
+    padding:2px;
+    color:white;
+    font-size:15px;
+    text-transform: uppercase;
+}
+.desc {
+    color:rgb(80,80,80);
+    padding-left:10px;
+}
+.precio {
+    font-size:16px;
+    font-weight:700;
+}
+.main-nav{
+    margin:0 auto;
+    display: flex;
+    flex-direction: column;
+}
+.inmueble-card {
+    padding:10px;
+    border:1px solid lightgrey;
+    border-radius: 4px;
+}
+.footer {
+    background:rgb(40,40,40);
+    color:white;
+    text-align:center;
+    padding:5px;
+    min-height:10vh;
+}
+#navbarNav {
+    padding:2px;
+}
+.nav-button-main {
+    margin:2px;
+    padding:2px 10px 2px 10px;
+}
+.header-img  {
+    height:250px;
+    width:100%;
+    object-fit: cover;
+}
+.single-img {
+    height:450px;
+    width: 100%;
+    object-fit:cover;
+}
+.single-mini-img {
+    height:200px;
+    width: 100%;
+    object-fit:cover;
+}
+.dropdown-main {
+    background:#2f2f2f;
+}
+.single-admin {
+    padding:1px;
+    border:1px solid lightgrey;
+    border-radius:3px;
+    margin-bottom:3px;
+}
+.nav-tabs {
+    display: flex;
+    justify-content: center;
+}
+.admin-nav {
+    padding:1px 5px 1px 5px;
+}
+.admin-nav a {
+    color:rgb(40,40,40);
+    transition: font-weight 1s;
+}
+.admin-nav a:hover {
+    font-weight: 600;
+}
+.danger {
+    color:red;
+    font-weight:600;
+}
+.btn {
+    border: 1px solid rgb(228,228,228);
+    border-radius:3px;
+}
+.cat-link {
+    color:rgb(40,40,40);
+    font-weight: 600;
+}
