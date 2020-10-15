@@ -2,27 +2,24 @@
 include_once 'app/models/category.model.php';
 include_once 'app/models/inmueble.model.php';
 include_once 'app/views/admin.view.php';
+include_once 'resources/php/functions.php';
 
 class AdminController {
 
     private $inmModel;
     private $catModel;
     private $view;
-
+    private $categorias;
+    
     function __construct() {
         $this->inmModel = new InmuebleModel();
         $this->catModel = new CategoryModel();
         $this->view = new AdminView();
-        // inicio la sesion cuando inicio el controlador, para poder chequear los permisos
-        session_start();
-        $this->checkIfAdmin();
-    }
 
-    function checkIfAdmin() {
+        $this->categorias = $this->catModel->getAll();
         
-        $categorias = $this->catModel->getAll();
-        if (!isset($_SESSION['USER_ROLE']) || $_SESSION['USER_ROLE'] != '1') {
-            $this->view->showError('No posee permisos para acceder a esta sección', $categorias);
+        if (!checkIfAdmin()) {
+            $this->view->showError('No posee permisos para acceder a esta sección', $this->categorias);
             die;
         }
         
@@ -31,9 +28,8 @@ class AdminController {
     function showPanel() {
         
         $inmuebles = $this->inmModel->getAll();
-        $categorias = $this->catModel->getAll();
 
-        $this->view->showPanel($inmuebles, $categorias);
+        $this->view->showPanel($inmuebles, $this->categorias);
     }
     
     /**
@@ -51,12 +47,11 @@ class AdminController {
 
         $single = $this->inmModel->getSingle($id);
         $category = $this->catModel->getCat($single->id_categoria);
-        $categorias = $this->catModel->getAll();
 
         if($single) {
-            $this->view->showModInm($single, $category, $categorias);
+            $this->view->showModInm($single, $category, $this->categorias);
         } else {
-            $this->view->showError('Inmueble no encontrado', $categorias);
+            $this->view->showError('Inmueble no encontrado', $this->categorias);
         }
 
     }
@@ -82,10 +77,9 @@ class AdminController {
      * Agrega una nueva categoría
      */
     function addCat() {
-        $categorias = $this->catModel->getAll();
 
         if (empty($_POST['nombre_cat'])) {
-            $this->view->showError('Se requiere un nombre para la categoría', $categorias);
+            $this->view->showError('Se requiere un nombre para la categoría', $this->categorias);
             die;
         }
         $nombre = $_POST['nombre_cat'];
@@ -96,7 +90,7 @@ class AdminController {
             header("Location: panel");
             die;
         } else {
-            $this->view->showError('Ocurrió un error al intentar insertar en base de datos', $categorias);
+            $this->view->showError('Ocurrió un error al intentar insertar en base de datos', $this->categorias);
             die;
         }
 
@@ -106,10 +100,9 @@ class AdminController {
      * Modifica una categoría preexistente
      */
     function updateCat($id) {
-        $categorias = $this->catModel->getAll();
         $nombre = $_POST['nombre_cat'];
         if (empty($nombre)) {
-            $this->view->showError('Se requiere un nombre para la categoría', $categorias);
+            $this->view->showError('Se requiere un nombre para la categoría', $this->categorias);
         } else {
             
             $success = $this->catModel->updateCat($nombre, $id);
@@ -118,7 +111,7 @@ class AdminController {
                 header("Location: " . BASE_URL . '/panel');
                 die;
             } else {
-                $this->view->showError('Ocurrió un error al intentar modificar en base de datos', $categorias);
+                $this->view->showError('Ocurrió un error al intentar modificar en base de datos', $this->categorias);
                 die;
             }
         }
@@ -129,18 +122,17 @@ class AdminController {
      * Elimina una categoría
      */
     function deleteCat($id) {
-        $categorias = $this->catModel->getAll();
         try {
             $success = $this->catModel->removeCat($id);
             if ($success) {
                 header("Location: " . BASE_URL . '/panel');
                 die;
             } else {
-                $this->view->showError('No es posible borrar la categoría, porque la acción está restringida por tratarse de una clave foránea.', $categorias);
+                $this->view->showError('No es posible borrar la categoría, porque la acción está restringida por tratarse de una clave foránea.', $this->categorias);
                 die;
             }
         } catch (error $e) {
-            $this->view->showError('Ocurrió un error inesperado al intentar eliminar la categoría.', $categorias);
+            $this->view->showError('Ocurrió un error inesperado al intentar eliminar la categoría.', $this->categorias);
             die;
         }
 
@@ -151,7 +143,6 @@ class AdminController {
      */
     function addSingle() {
         
-        $categorias = $this->catModel->getAll();
         $titulo = $_POST['titulo'];
         if (empty($_POST['descripcion'])) {
             $descripcion = 'Sin descripción';
@@ -177,7 +168,7 @@ class AdminController {
             || ( empty($alquiler) && $alquiler != 0) 
             || ( empty($venta) && $venta != 0 )
             ) {
-                $this->view->showError('Faltan datos obligatorios', $categorias);
+                $this->view->showError('Faltan datos obligatorios', $this->categorias);
                 die;
         } // endif
             
@@ -188,7 +179,7 @@ class AdminController {
             header("Location: " . BASE_URL . 'panel');
             die; 
         } else {
-            $this->view->showError('Ocurrió un error al intentar insertar en base de datos', $categorias);
+            $this->view->showError('Ocurrió un error al intentar insertar en base de datos', $this->categorias);
         die;
         }
         
@@ -198,7 +189,7 @@ class AdminController {
      * Modifica un inmueble
      */
     function updateSingle($id) {
-        $categorias = $this->catModel->getAll();
+        
         $titulo = $_POST['titulo'];
         if (empty($_POST['descripcion'])) {
             $descripcion = 'Sin descripción';
@@ -224,7 +215,7 @@ class AdminController {
             || ( empty($alquiler) && $alquiler != 0) 
             || ( empty($venta) && $venta != 0 )
             ) {
-                $this->view->showError('Faltan datos obligatorios', $categorias);
+                $this->view->showError('Faltan datos obligatorios', $this->categorias);
                 die;
         } // endif
             
@@ -235,7 +226,7 @@ class AdminController {
             header("Location: " . BASE_URL . 'panel');
             die; 
         } else {
-            $this->view->showError('Ocurrió un error al intentar modificar en base de datos', $categorias);
+            $this->view->showError('Ocurrió un error al intentar modificar en base de datos', $this->categorias);
         die;
         }
     }
