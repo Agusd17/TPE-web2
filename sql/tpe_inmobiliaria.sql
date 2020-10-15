@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-10-2020 a las 10:46:48
+-- Tiempo de generación: 15-10-2020 a las 20:46:16
 -- Versión del servidor: 10.4.14-MariaDB
 -- Versión de PHP: 7.4.9
 
@@ -44,8 +44,8 @@ INSERT INTO `categoria` (`id`, `nombre`) VALUES
 (7, 'Local comercial'),
 (8, 'Oficina'),
 (9, 'Garage/cochera'),
-(10, 'Cabaña'),
-(11, 'Quinta');
+(11, 'Quinta'),
+(15, 'Cabaña');
 
 -- --------------------------------------------------------
 
@@ -75,7 +75,10 @@ INSERT INTO `inmueble` (`id`, `id_categoria`, `titulo`, `descripcion`, `direccio
 (14, 1, 'Depto monoambiente para estudiante', 'Es pequeño pero funcional para un estudiante. Verlo es comprarlo', 'Av. Irreal 225', 31, 85000, 1, 0),
 (15, 5, 'Gran terreno apto edificios', 'Terreno bien ubicdo, céntrico. Ideal para proyectos grandes.', 'Av. céntrica 54', 480, 400000, 1, 0),
 (16, 11, 'Casa quinta', 'Casa de campo ideal para retirarse a la naturaleza. Posee 2 habitaciones, 1 baño, cocina-comedor, sala de estar con fogón, lavadero y garage.', 'Las charcas 4670', 24000, 420000, 1, 0),
-(17, 7, 'deleteo', 'deleteo', 'deleteo 56', 44, 123547, 1, 0);
+(17, 7, 'Local pequeño para negocio de ropa o similar', 'Céntrico. Se alquila.', 'Av. céntrica 226', 36, 85, 0, 1),
+(18, 6, 'Galpón apto maquinaria agrícola', 'Amplio galpón cerrado, ideal para guardar maquinaria agrícola por sus dimensiones. Buena ubicación de fácil acceso. Precio negociable', 'Av. circunvalación 2262', 5000, 120000, 1, 0),
+(20, 15, 'Cabaña de madera', 'Para esos días en que necesitas irte de la ciudad. Respira el aire natural en el campo. Reservar con anticipación.', 'Camino rural km 32', 50, 25, 0, 1),
+(21, 1, 'Depto 1 hab. A estrenar', 'En frente a la universidad. 2do piso. Expensas $2500. Precio charlable', 'Calle universitaria 96', 45, 60000, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -128,13 +131,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `inmueble`
 --
 ALTER TABLE `inmueble`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
@@ -150,7 +153,7 @@ ALTER TABLE `users`
 -- Filtros para la tabla `inmueble`
 --
 ALTER TABLE `inmueble`
-  ADD CONSTRAINT `inmueble_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id`);
+  ADD CONSTRAINT `inmueble_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

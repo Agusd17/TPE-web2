@@ -25,7 +25,7 @@ class InmuebleModel {
     function getAll() {
 
         // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
-        $query = $this->db->prepare('SELECT * FROM inmueble');
+        $query = $this->db->prepare('SELECT * FROM inmueble ORDER BY id DESC');
         $query->execute();
 
         // 3. Obtengo la respuesta con un fetchAll (porque son muchos)

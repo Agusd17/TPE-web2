@@ -36,4 +36,16 @@ class AdminView {
         $smarty->assign('categoria', $category);
         $smarty->display('templates/panel_modify.tpl');
     }
+
+    /**
+     * Muestra un error en una página separada
+     * requiere que se le pase un mensaje de error por argumento
+     */
+    function showError($msg, $categorias) {
+        $smarty = new Smarty();
+
+        $smarty->assign('msg', $msg);
+        $smarty->assign('categorias', $categorias);
+        $smarty->display('templates/error.tpl');
+    }
 }
