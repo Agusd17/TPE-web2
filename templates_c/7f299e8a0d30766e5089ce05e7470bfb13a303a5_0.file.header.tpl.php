@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-10-15 07:42:46
+/* Smarty version 3.1.34-dev-7, created on 2020-12-02 18:00:32
   from 'C:\xampp\htdocs\TPWeb\templates\header.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5f87e1562dada8_52638439',
+  'unifunc' => 'content_5fc7c83049eee9_69932004',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '7f299e8a0d30766e5089ce05e7470bfb13a303a5' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TPWeb\\templates\\header.tpl',
-      1 => 1602740560,
+      1 => 1606928429,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5f87e1562dada8_52638439 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5fc7c83049eee9_69932004 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
     <head>
@@ -72,6 +72,9 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                   <a class="nav-link" href="logout">Salir</a>
                   <?php } else { ?>
                   <a class="nav-link" href="login">Login</a>
+                </li>
+                <li class="nav-item nav-button-main">
+                  <a class="nav-link" href="register">Registrarme</a>
                   <?php }?>
                 </li>
               </ul>

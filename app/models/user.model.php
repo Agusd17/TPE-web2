@@ -17,10 +17,10 @@ class UserModel {
      * Crea un nuevo usuario en la tabla users
      * Por defecto, le asigna rol de usuario normal ("0")
      */
-    public function insert_user($email, $password) {
+    public function insertUser($username, $email, $password) {
 
-        $query = $this->db->prepare('INSERT INTO users (email, passwd) VALUES (?,?)');
-        $query->execute([$email, $password]);
+        $query = $this->db->prepare('INSERT INTO users (username, email, passwd) VALUES (?,?,?)');
+        $query->execute([$username, $email, $password]);
 
         // Obtengo y devuelo el ID del usuario nuevo
         return $this->db->lastInsertId();
@@ -29,10 +29,20 @@ class UserModel {
     /**
      * Recupera el usuario requerido en base al email proporcionado
      */
+    public function getByUserName($username) {
+        $query = $this->db->prepare('SELECT * FROM users WHERE username = ?');
+        $query->execute([$username]);
+        $user = $query->fetch(PDO::FETCH_OBJ);
+        return $user;
+    }
+    
+    /**
+     * Recupera el usuario requerido en base al email proporcionado
+     */
     public function getByUserEmail($email) {
         $query = $this->db->prepare('SELECT * FROM users WHERE email = ?');
         $query->execute([$email]);
-        $inmueble = $query->fetch(PDO::FETCH_OBJ);
-        return $inmueble;
+        $user = $query->fetch(PDO::FETCH_OBJ);
+        return $user;
     }
 }

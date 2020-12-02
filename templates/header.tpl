@@ -39,6 +39,9 @@
                   <a class="nav-link" href="logout">Salir</a>
                   {else}
                   <a class="nav-link" href="login">Login</a>
+                </li>
+                <li class="nav-item nav-button-main">
+                  <a class="nav-link" href="register">Registrarme</a>
                   {/if}
                 </li>
               </ul>

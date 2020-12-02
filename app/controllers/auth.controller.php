@@ -7,19 +7,23 @@ class AuthController {
 
     private $view;
     private $userModel;
+    private $catModel;
+    private $categorias;
 
     public function __construct() {
         $this->view = new AuthView();
         $this->userModel = new UserModel();
+        $this->catModel = new CategoryModel();
+        $this->categorias = $this->catModel->getAll();
         session_start();
     }
 
     function showLogin($msg = '') {
 
         if ($msg != '') {
-            $this->view->showLoginForm($msg);
+            $this->view->showLoginForm($msg, $this->categorias);
         } else {
-            $this->view->showLoginForm('Ingrese sus datos de acceso');
+            $this->view->showLoginForm('Ingrese sus datos de acceso', $this->categorias);
         }
         
     }
@@ -30,12 +34,69 @@ class AuthController {
         die;
     }
 
+    function showRegister($msg = '') {
+
+        if ($msg != '') {
+            $this->view->showRegisterForm($msg, $this->categorias);
+        } else {
+            $this->view->showRegisterForm('Alta de nuevo usuario', $this->categorias);
+        }
+
+    }
+
+    function registerUser() {
+
+        $validData = false;
+
+        $name = $_POST['register-name'];
+        $email = $_POST['register-email'];
+        $pw = $_POST['register-passwd'];
+
+        if (empty($name) || empty($email) || empty($pw)) {
+            $this->showRegister('Debe completar todos los campos', $this->categorias);
+        } else {
+            
+            $user = $this->userModel->getByUserName($name);
+            
+            if (!empty($user)) {
+
+                $validData = false;
+
+            } else {
+
+                $user = $this->userModel->getByUserEmail($email);
+
+                if (!empty($user)) {
+
+                    $validData = false;
+
+                } else {
+
+                    $validData = true;
+
+                }
+
+            }
+        }
+
+        if (!$validData) {
+            $this->showRegister('Nombre de usuario o email ya existente', $this->categorias);
+        } else  {
+            $id = $this->userModel->insertUser($name, $email, $pw);
+            echo($id);
+            $this->showRegister('Usuario registrado con éxito.', $this->categorias);
+        }
+        
+
+
+    }
+
     function verifyUser() {
         $email = $_POST['email'];
         $pw = $_POST['password'];
 
         if (empty($email) || empty($pw)) {
-            $this->showLogin('Debe completar ambos campos');
+            $this->showLogin('Debe completar ambos campos', $this->categorias);
         } else {
             
             $user = $this->userModel->getByUserEmail($email);
@@ -48,7 +109,7 @@ class AuthController {
                 header('Location: home');
                 die;
             } else {
-                $this->showLogin('Datos incorrectos. Intente nuevamente');
+                $this->showLogin('Datos incorrectos. Intente nuevamente', $this->categorias);
             }
         }
 
