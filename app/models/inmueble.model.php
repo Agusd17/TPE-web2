@@ -39,6 +39,29 @@ class InmuebleModel {
 
         return $inmuebles;
     }
+    
+    /**
+     * Devuelve todos los inmuebles que coincidan con la key
+     */
+    function getAllByKey($key) {
+        $numkey = $key;
+        $stringkey = '%'.$key.'%';
+
+        // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
+        $query = $this->db->prepare(
+            'SELECT * FROM inmueble WHERE titulo LIKE ? 
+            OR descripcion LIKE ? 
+            OR direccion LIKE ? 
+            OR metros_cuadrados LIKE ? 
+            OR precio LIKE ? 
+            ORDER BY id DESC');
+        $query->execute([$stringkey,$stringkey,$stringkey,$numkey,$numkey]);
+
+        // 3. Obtengo la respuesta con un fetchAll (porque son muchos)
+        $inmuebles = $query->fetchAll(PDO::FETCH_OBJ);
+
+        return $inmuebles;
+    }
 
     /**
      * Devuelve los inmuebles que contienen el id de la categoría recibida

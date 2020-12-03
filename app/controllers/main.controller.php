@@ -35,7 +35,6 @@ class MainController {
     public function showBySearch() {
         $key = $_POST['search-key'];
         $inmuebles = $this->inmModel->getAllByKey($key);
-
         $this->view->showAll($inmuebles, $this->categorias);
     }
 
