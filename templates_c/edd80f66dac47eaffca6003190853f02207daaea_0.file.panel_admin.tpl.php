@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-12-02 20:47:40
+/* Smarty version 3.1.34-dev-7, created on 2020-12-03 03:33:23
   from 'C:\xampp\htdocs\TPWeb\templates\panel_admin.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5fc7ef5c6503f9_62251203',
+  'unifunc' => 'content_5fc84e730b7466_64720610',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'edd80f66dac47eaffca6003190853f02207daaea' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TPWeb\\templates\\panel_admin.tpl',
-      1 => 1606938454,
+      1 => 1606962800,
       2 => 'file',
     ),
   ),
@@ -24,7 +24,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ),false)) {
-function content_5fc7ef5c6503f9_62251203 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5fc84e730b7466_64720610 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender('file:header.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 
@@ -193,9 +193,9 @@ $_smarty_tpl->tpl_vars['user']->do_else = false;
 ')) 
                                         window.location.href='give_admin/<?php echo $_smarty_tpl->tpl_vars['user']->value->id;?>
 '">
-                                        Dar permiso de Administrador</a>
+                                        Dar Admin</a>
                                     <?php } elseif (($_SESSION['ID_USER'] === $_smarty_tpl->tpl_vars['user']->value->id)) {?> 
-                                    <span class="badge badge-danger">No puede cambiar sus propios permisos!</span>
+                                    <span class="badge badge-secondary">No puede cambiar sus propios permisos!</span>
                                     <?php }?>
                                     <?php if ((($_smarty_tpl->tpl_vars['user']->value->role === '1') && ($_SESSION['ID_USER'] != $_smarty_tpl->tpl_vars['user']->value->id))) {?>
                                     <a class="btn btn-warning btn-sm" 
@@ -203,9 +203,15 @@ $_smarty_tpl->tpl_vars['user']->do_else = false;
 ')) 
                                         window.location.href='remove_admin/<?php echo $_smarty_tpl->tpl_vars['user']->value->id;?>
 '">
-                                        Quitar permiso de Administrador</a>
-                                    <?php } else { ?>
-
+                                        Quitar Admin</a>
+                                    <?php }?>
+                                    <?php if (($_SESSION['ID_USER'] != $_smarty_tpl->tpl_vars['user']->value->id)) {?>
+                                    <a class="btn btn-danger btn-sm" 
+                                        onclick="if (confirm('¡CUIDADO! Está a punto de borrar el usuario <?php echo $_smarty_tpl->tpl_vars['user']->value->username;?>
+')) 
+                                        window.location.href='remove_user/<?php echo $_smarty_tpl->tpl_vars['user']->value->id;?>
+'">
+                                        Borrar</a>
                                     <?php }?>
                                 </div>
                             </div>

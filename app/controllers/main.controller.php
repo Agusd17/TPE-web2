@@ -32,6 +32,13 @@ class MainController {
         $this->view->showAll($inmuebles, $this->categorias);
     }
 
+    public function showBySearch() {
+        $key = $_POST['search-key'];
+        $inmuebles = $this->inmModel->getAllByKey($key);
+
+        $this->view->showAll($inmuebles, $this->categorias);
+    }
+
     /**
      * Pide los inmuebles pertenecientes a la categoría elegida, primero consultando por el id de dicha categoría
      */

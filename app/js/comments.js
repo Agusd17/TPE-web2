@@ -2,6 +2,11 @@
 
 const app = new Vue({
     el: "#app",
+    methods: {
+        onDelete(id) {
+            deleteComment(id) 
+        },
+    },
     data: {
         comments: [],
         permission: false,
@@ -33,7 +38,6 @@ document.addEventListener('DOMContentLoaded', e => {
 });
 
 async function getComments() {
-    console.log('Hi mom, im getting comments!');
     try {
         let inmuebleID = document.querySelector('input[name=inmID]').value;
         const response = await fetch('api/comments/'+inmuebleID);
@@ -42,6 +46,7 @@ async function getComments() {
         console.log(comments);
      
         // guardo los comentarios en mi array comments
+
         app.comments = comments;
         console.log(app.comments);
     } catch(e) {
@@ -59,11 +64,11 @@ async function addComment() {
         contenido: document.querySelector('textarea[name=contenido]').value,
         puntaje: document.querySelector('select[name=puntuacion]').value
     }
-    // if (comment.puntaje > 5 || comment.puntaje < 1) {
+    if (comment.puntaje > 5 || comment.puntaje < 1) {
 
-    //     console.log('puntaje fuera de rango');
+        console.log('puntaje fuera de rango');
 
-    // } else {
+    } else {
 
         
         try {
@@ -80,7 +85,26 @@ async function addComment() {
         } catch(e) {
             console.log(e);
         }
-    // }
+    }
         
 
+}
+
+async function deleteComment(id) {
+    
+    console.log('deleted the id: '+id);
+    try {
+        const response = await fetch('api/comments/'+id , {
+            method: 'DELETE',
+            headers: {'Content-Type': 'application/json'}, 
+            body: JSON.stringify()
+        });
+        
+        const t = await response.json();
+        // app.comments.push(t);
+        getComments();
+        
+    } catch(e) {
+        console.log(e);
+    }
 }

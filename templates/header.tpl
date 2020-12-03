@@ -31,7 +31,12 @@
                     <li><a class="nav-link" href="cat/{$categoria->nombre}">{$categoria->nombre}</a></li>
                     {/foreach}
                   </ul>
-              </li>
+                </li>
+                <li class="dropdown nav-button-main">
+                  <div>
+                    {include 'form-search.tpl'}
+                  </div>
+                </li>
                 <li class="nav-item nav-button-main">
                   {if ( isset($smarty.session.USER_ROLE) && ($smarty.session.USER_ROLE == '1'))}
                   <a class="nav-link" href="panel">Panel Admin</a>

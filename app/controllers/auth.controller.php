@@ -90,6 +90,7 @@ class AuthController {
             if (!empty($user)) { // logueo al usuario automaticamente si todo salio bien
                 $_SESSION['ID_USER'] = $user->id;
                 $_SESSION['USER_ROLE'] = $user->role;
+                $_SESSION['USER_NAME'] = $user->username;
             } else {
 
             }

@@ -77,4 +77,10 @@ class UserModel {
         $user = $query->execute([$id]);
         return $user;
     }
+
+    public function removeUser($id) {
+        $query = $this->db->prepare('DELETE FROM users WHERE id=?');
+        $user = $query->execute([$id]);
+        return $user;
+    }
 }

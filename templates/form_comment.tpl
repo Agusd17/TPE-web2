@@ -1,3 +1,5 @@
+<hr>
+<h5>Dejar un comentario...</h5>
 <form action="add-comment" id="comment-form" class="my-4">
     <div class="form-group">
         <div class="row">

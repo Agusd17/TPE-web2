@@ -313,4 +313,20 @@ class AdminController {
         }
     }
 
+    function removeUser($id) {
+        if ($_SESSION['ID_USER'] === $id) {
+            $this->view->showError('No puede borrar su propio usuario.', $this->categorias);
+            return;
+        }
+
+        $user = $this->userModel->getById($id);
+
+        if (!empty($user)) {
+            $this->userModel->removeUser($id);
+            $this->view->showSuccess('Usuario borrado con éxito', $this->categorias);
+        } else {
+            $this->view->showError('El usuario consultado no existe.', $this->categorias);
+        }
+    }
+
 }

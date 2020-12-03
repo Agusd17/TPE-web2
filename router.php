@@ -49,6 +49,11 @@ switch ($params[0]) {
         $id = $params[1];
         $controller->removeAdmin($id);
         break;
+    case 'remove_user':
+        $controller = new AdminController();
+        $id = $params[1];
+        $controller->removeUser($id);
+        break;
     case 'panel':
         $controller = new AdminController();
         $controller->showPanel();
@@ -56,6 +61,10 @@ switch ($params[0]) {
     case 'home':
         $controller = new MainController();
         $controller->showAll();
+        break;
+    case 'home_search':
+        $controller = new MainController();
+        $controller->showBySearch();
         break;
     case 'cat':
         $controller = new MainController();

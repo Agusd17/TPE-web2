@@ -43,7 +43,7 @@ class ApiCommentsController  {
         if ($comments)
             $this->view->response($comments, 200);
         else
-            $this->view->response("no se encontraron comentarios que respondan a la consulta realizada", 404);
+            $this->view->response('', 404);
     }
 
     public function add($params = null) {
@@ -66,6 +66,19 @@ class ApiCommentsController  {
         else { 
             $this->view->response("No se pudo insertar", 500);
         }
+    }
+
+    public function delete($params = null) {
+        $id = $params[':ID'];
+        $response = $this->model->delete($id);
+
+        if ($response === true) {
+            $this->view->response("Comentario eliminado exitosamente", 200);
+        } else {
+            $this->view->response("No se pudo eliminar el comentario", 500);
+        }
+        
+
     }
     
 }

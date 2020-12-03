@@ -46,6 +46,9 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-sm-12">
+                        {include file="vue/commentList.vue"}
+                    </div>
                     <input type="hidden" value="{$single->id}" id="inmID" name="inmID">
                     {if (isset($smarty.session.ID_USER))}
                     <input type="hidden" value="{$smarty.session.USER_NAME}" id="authorName" name="authorName">
@@ -54,9 +57,6 @@
                         {include 'form_comment.tpl' upload=false}
                     </div>
                     {/if}
-                    <div class="col-sm-12">
-                        {include file="vue/commentList.vue"}
-                    </div>
                 </div>
             </div>
             

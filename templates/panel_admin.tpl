@@ -134,17 +134,21 @@
                                     <a class="btn btn-primary btn-sm" 
                                         onclick="if (confirm('¡CUIDADO! Está a punto de otorgarle permisos de administrador al usuario {$user->username}')) 
                                         window.location.href='give_admin/{$user->id}'">
-                                        Dar permiso de Administrador</a>
+                                        Dar Admin</a>
                                     {else if ($smarty.session.ID_USER === $user->id)} 
-                                    <span class="badge badge-danger">No puede cambiar sus propios permisos!</span>
+                                    <span class="badge badge-secondary">No puede cambiar sus propios permisos!</span>
                                     {/if}
                                     {if (($user->role === '1') && ($smarty.session.ID_USER != $user->id))}
                                     <a class="btn btn-warning btn-sm" 
                                         onclick="if (confirm('¡CUIDADO! Está a punto de quitarle permisos de administrador al usuario {$user->username}')) 
                                         window.location.href='remove_admin/{$user->id}'">
-                                        Quitar permiso de Administrador</a>
-                                    {else}
-
+                                        Quitar Admin</a>
+                                    {/if}
+                                    {if ($smarty.session.ID_USER != $user->id)}
+                                    <a class="btn btn-danger btn-sm" 
+                                        onclick="if (confirm('¡CUIDADO! Está a punto de borrar el usuario {$user->username}')) 
+                                        window.location.href='remove_user/{$user->id}'">
+                                        Borrar</a>
                                     {/if}
                                 </div>
                             </div>
