@@ -1,16 +1,15 @@
 <?php 
 
+require_once 'app/helpers/db.helper.php';
+
 class CategoryModel {
 
     private $db;
+    private $dbHelper;
 
     function __construct() {
-        $this->db = $this->connect();
-    }
-
-    private function connect() {
-        $db = new PDO('mysql:host=localhost;'.'dbname=tpe_inmobiliaria;charset=utf8', 'root', '');
-        return $db;
+        $this->dbHelper = new DBHelper();
+        $this->db = $this->dbHelper->connect();
     }
 
     /**

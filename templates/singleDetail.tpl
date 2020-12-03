@@ -40,9 +40,22 @@
                                 {/if}
                             </div>
                             <div class="col-sm-12">
-                                <a href="{BASE_URL}home">volver</a>
+                                <a href="home" class="btn btn-primary" role="button">volver</a>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <input type="hidden" value="{$single->id}" id="inmID" name="inmID">
+                    {if (isset($smarty.session.ID_USER))}
+                    <input type="hidden" value="{$smarty.session.USER_NAME}" id="authorName" name="authorName">
+                    <input type="hidden" value="{$smarty.session.USER_ROLE}" id="rol" name="rol">
+                    <div class="col-sm-12">
+                        {include 'form_comment.tpl' upload=false}
+                    </div>
+                    {/if}
+                    <div class="col-sm-12">
+                        {include file="vue/commentList.vue"}
                     </div>
                 </div>
             </div>
@@ -51,5 +64,6 @@
         </div>
 
     </main>
+    <script src="app/js/comments.js"></script>
 
 {include file='footer.tpl'}

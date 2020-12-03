@@ -1,23 +1,29 @@
 <?php
 
+require_once 'app/helpers/db.helper.php';
+
 class InmuebleModel {
 
     private $db;
+    private $dbHelper;
 
     function __construct() {
-         // Inicio la conexión
-        $this->db = $this->connect();
+        $this->dbHelper = new DBHelper();
+        $this->db = $this->dbHelper->connect();
     }
 
     /**
      * Abre conexión a la base de datos;
      */
-    private function connect() {
-        $db = new PDO('mysql:host=localhost;'.'dbname=tpe_inmobiliaria;charset=utf8', 'root', '');
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-        return $db;
-    }
+    //
+    // comentada porque se reemplazo por el helper
+    //
+    // private function connect() {
+    //     $db = new PDO('mysql:host=localhost;'.'dbname=tpe_inmobiliaria;charset=utf8', 'root', '');
+    //     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    //     $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+    //     return $db;
+    // }
 
     /**
      * Devuelve todos los inmuebles que existen actualmente.

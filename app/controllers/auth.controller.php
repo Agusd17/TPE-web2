@@ -80,17 +80,30 @@ class AuthController {
         }
 
         if (!$validData) {
+
             $this->showRegister('Nombre de usuario o email ya existente', $this->categorias);
-        } else  {
-            $id = $this->userModel->insertUser($name, $email, $pw);
-            echo($id);
-            $this->showRegister('Usuario registrado con éxito.', $this->categorias);
+
+        } else  { // la data es válida, procedo a registrar al usuario
+
+            $user = $this->userModel->insertUser($name, $email, $pw);
+
+            if (!empty($user)) { // logueo al usuario automaticamente si todo salio bien
+                $_SESSION['ID_USER'] = $user->id;
+                $_SESSION['USER_ROLE'] = $user->role;
+            } else {
+
+            }
+            $this->view->showSuccess('Usuario registrado con éxito.', $this->categorias);
+
         }
         
 
 
     }
 
+    /**
+     * Función de login
+     */
     function verifyUser() {
         $email = $_POST['email'];
         $pw = $_POST['password'];
@@ -105,6 +118,7 @@ class AuthController {
 
                 $_SESSION['ID_USER'] = $user->id;
                 $_SESSION['USER_ROLE'] = $user->role;
+                $_SESSION['USER_NAME'] = $user->username;
                 
                 header('Location: home');
                 die;

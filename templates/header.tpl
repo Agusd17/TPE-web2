@@ -9,6 +9,7 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <link rel="stylesheet" href="resources/css/style.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
     </head>
     <body>
@@ -32,10 +33,12 @@
                   </ul>
               </li>
                 <li class="nav-item nav-button-main">
-                  {if ( isset($smarty.session.USER_ROLE) && $smarty.session.USER_ROLE == '1')}
+                  {if ( isset($smarty.session.USER_ROLE) && ($smarty.session.USER_ROLE == '1'))}
                   <a class="nav-link" href="panel">Panel Admin</a>
                 </li>
                 <li class="nav-item nav-button-main">
+                  <a class="nav-link" href="logout">Salir</a>
+                  {else if ((isset($smarty.session.USER_ROLE)) && ($smarty.session.USER_ROLE == '0'))}
                   <a class="nav-link" href="logout">Salir</a>
                   {else}
                   <a class="nav-link" href="login">Login</a>
@@ -48,3 +51,5 @@
             </div>
         </nav>
     </header>
+
+

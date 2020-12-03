@@ -8,28 +8,64 @@ class AdminController {
 
     private $inmModel;
     private $catModel;
+    private $userModel;
     private $view;
+    private $inmuebles;
     private $categorias;
+    private $usuarios;
     
     function __construct() {
         $this->inmModel = new InmuebleModel();
         $this->catModel = new CategoryModel();
+        $this->userModel = new UserModel();
         $this->view = new AdminView();
 
+        $this->inmuebles = $this->inmModel->getAll();
         $this->categorias = $this->catModel->getAll();
+        $this->usuarios = $this->userModel->getAll();
         
+        // chequeo siempre al acceder al controlador, que quien intenta acceder sea un admin logueado
+        // esta función inicia la sesión y comprueba que quien está accediendo sea admin
+        
+        session_start();
+
+        $this->updateRole();
+
         if (!checkIfAdmin()) {
             $this->view->showError('No posee permisos para acceder a esta sección', $this->categorias);
             die;
         }
         
     }
+
+    /**
+     * Chequea que haya una sesión actualmente, y que el rol que posee dicha sesión
+     * se corresponda con el rol actual del usuario logueado,
+     * ya que podría cambiar en tiempo real por algún otro admin
+     */
+    private function updateRole() {
+
+        if (isset($_SESSION['ID_USER'])) {
+
+            $id = $_SESSION['ID_USER'];
+            $user = $this->userModel->getById($id);
+            
+            // Si durante una sesión, se actualiza el rol de otra sesión actualmente seteada,
+            // se chequea que sigan teniendo el mismo rol de usuario, si no es asi, se actualiza
+            if ($user->role != $_SESSION['USER_ROLE']) {
+
+                $_SESSION['USER_ROLE'] = $user->role;
+
+            }
+        } else  {
+            $this->view->showError('No posee permisos para acceder a esta sección', $this->categorias);
+            die;
+        }
+    }
     
     function showPanel() {
-        
-        $inmuebles = $this->inmModel->getAll();
 
-        $this->view->showPanel($inmuebles, $this->categorias);
+        $this->view->showPanel($this->inmuebles, $this->categorias, $this->usuarios);
     }
     
     /**
@@ -237,6 +273,44 @@ class AdminController {
     function deleteSingle($id) {
         $this->inmModel->remove($id);
         header("Location: " . BASE_URL); 
+    }
+
+    function giveAdmin($id) {
+
+        $user = $this->userModel->getById($id);
+
+        if (!empty($user)) {
+            if ($user->role === '1') {
+                $this->view->showError('El usuario ya es Administrador.', $this->categorias);
+                return;
+            }
+            $this->userModel->giveAdmin($id);
+            $this->view->showSuccess('Usuario modificado con éxito', $this->categorias);
+        } else {
+            $this->view->showError('El usuario consultado no existe.', $this->categorias);
+        }
+        
+    } 
+
+    function removeAdmin($id) {
+
+        if ($_SESSION['ID_USER'] === $id) {
+            $this->view->showError('No puede modificar sus propios permisos.', $this->categorias);
+            return;
+        }
+        
+        $user = $this->userModel->getById($id);
+
+        if (!empty($user)) {
+            if ($user->role === '0') {
+                $this->view->showError('El usuario no es Administrador.', $this->categorias);
+                return;
+            }
+            $this->userModel->removeAdmin($id);
+            $this->view->showSuccess('Usuario modificado con éxito', $this->categorias);
+        } else {
+            $this->view->showError('El usuario consultado no existe.', $this->categorias);
+        }
     }
 
 }

@@ -7,11 +7,12 @@ class AdminView {
     /**
      * Muestra el panel de administración
      */
-    function showPanel($inmuebles, $categorias) {
+    function showPanel($inmuebles, $categorias, $usuarios) {
         
         $smarty = new Smarty();
         $smarty->assign('inmuebles', $inmuebles);
         $smarty->assign('categorias', $categorias);
+        $smarty->assign('usuarios', $usuarios);
         $smarty->display('templates/panel_admin.tpl');
     }
 
@@ -47,5 +48,17 @@ class AdminView {
         $smarty->assign('msg', $msg);
         $smarty->assign('categorias', $categorias);
         $smarty->display('templates/error.tpl');
-    }
+    } 
+    
+    /**
+     * Muestra un mensaje de éxito en una página separada
+     * requiere que se le pase un mensaje por argumento
+     */
+    function showSuccess($msg, $categorias) {
+        $smarty = new Smarty();
+
+        $smarty->assign('msg', $msg);
+        $smarty->assign('categorias', $categorias);
+        $smarty->display('templates/success.tpl');
+    } 
 }

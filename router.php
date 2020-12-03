@@ -39,6 +39,16 @@ switch ($params[0]) {
         $controller = new AuthController();
         $controller->registerUser();
         break;
+    case 'give_admin':
+        $controller = new AdminController();
+        $id = $params[1];
+        $controller->giveAdmin($id);
+        break;
+    case 'remove_admin':
+        $controller = new AdminController();
+        $id = $params[1];
+        $controller->removeAdmin($id);
+        break;
     case 'panel':
         $controller = new AdminController();
         $controller->showPanel();

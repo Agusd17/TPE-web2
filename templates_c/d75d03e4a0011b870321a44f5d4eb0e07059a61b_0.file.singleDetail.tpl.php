@@ -1,28 +1,30 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-10-15 10:37:15
+/* Smarty version 3.1.34-dev-7, created on 2020-12-03 02:41:30
   from 'C:\xampp\htdocs\TPWeb\templates\singleDetail.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5f880a3b3ac229_68264235',
+  'unifunc' => 'content_5fc8424a21d045_93929551',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd75d03e4a0011b870321a44f5d4eb0e07059a61b' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TPWeb\\templates\\singleDetail.tpl',
-      1 => 1602751033,
+      1 => 1606959493,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
     'file:header.tpl' => 1,
+    'file:form_comment.tpl' => 1,
+    'file:vue/commentList.vue' => 1,
     'file:footer.tpl' => 1,
   ),
 ),false)) {
-function content_5f880a3b3ac229_68264235 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5fc8424a21d045_93929551 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender('file:header.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 
@@ -79,10 +81,27 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                                 <?php }?>
                             </div>
                             <div class="col-sm-12">
-                                <a href="<?php echo BASE_URL;?>
-home">volver</a>
+                                <a href="home" class="btn btn-primary" role="button">volver</a>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <input type="hidden" value="<?php echo $_smarty_tpl->tpl_vars['single']->value->id;?>
+" id="inmID" name="inmID">
+                    <?php if (((isset($_SESSION['ID_USER'])))) {?>
+                    <input type="hidden" value="<?php echo $_SESSION['USER_NAME'];?>
+" id="authorName" name="authorName">
+                    <input type="hidden" value="<?php echo $_SESSION['USER_ROLE'];?>
+" id="rol" name="rol">
+                    <div class="col-sm-12">
+                        <?php $_smarty_tpl->_subTemplateRender('file:form_comment.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array('upload'=>false), 0, false);
+?>
+                    </div>
+                    <?php }?>
+                    <div class="col-sm-12">
+                        <?php $_smarty_tpl->_subTemplateRender("file:vue/commentList.vue", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
                     </div>
                 </div>
             </div>
@@ -91,6 +110,9 @@ home">volver</a>
         </div>
 
     </main>
+    <?php echo '<script'; ?>
+ src="app/js/comments.js"><?php echo '</script'; ?>
+>
 
 <?php $_smarty_tpl->_subTemplateRender('file:footer.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 }

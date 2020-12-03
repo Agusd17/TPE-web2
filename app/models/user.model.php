@@ -1,16 +1,23 @@
 <?php 
 
+require_once 'app/helpers/db.helper.php';
+
 class UserModel {
 
     private $db;
+    private $dbHelper;
 
     function __construct() {
-        $this->db = $this->connect();
+        $this->dbHelper = new DBHelper();
+        $this->db = $this->dbHelper->connect();
     }
 
-    private function connect() {
-        $db = new PDO('mysql:host=localhost;'.'dbname=tpe_inmobiliaria;charset=utf8', 'root', '');
-        return $db;
+    public function getAll() {
+
+        $query = $this->db->prepare('SELECT * FROM users');
+        $query->execute();
+        $users = $query->fetchAll(PDO::FETCH_OBJ);
+        return $users;
     }
 
     /**
@@ -19,11 +26,24 @@ class UserModel {
      */
     public function insertUser($username, $email, $password) {
 
-        $query = $this->db->prepare('INSERT INTO users (username, email, passwd) VALUES (?,?,?)');
-        $query->execute([$username, $email, $password]);
+        $hash = password_hash($password, PASSWORD_DEFAULT); 
 
-        // Obtengo y devuelo el ID del usuario nuevo
-        return $this->db->lastInsertId();
+        $query = $this->db->prepare('INSERT INTO users (username, email, passwd) VALUES (?,?,?)');
+        $query->execute([$username, $email, $hash]);
+
+        $user = $this->getById($this->db->lastInsertId());
+        // Obtengo y devuelo el usuario nuevo
+        return $user;
+    }
+
+    /**
+     * Recupera el usuario requerido en base al id proporcionado
+     */
+    public function getById($id) {
+        $query = $this->db->prepare('SELECT * FROM users WHERE id = ?');
+        $query->execute([$id]);
+        $user = $query->fetch(PDO::FETCH_OBJ);
+        return $user;
     }
 
     /**
@@ -43,6 +63,18 @@ class UserModel {
         $query = $this->db->prepare('SELECT * FROM users WHERE email = ?');
         $query->execute([$email]);
         $user = $query->fetch(PDO::FETCH_OBJ);
+        return $user;
+    }
+
+    public function giveAdmin($id) {
+        $query = $this->db->prepare('UPDATE users SET role=1 WHERE id=?');
+        $user = $query->execute([$id]);
+        return $user;
+    }
+    
+    public function removeAdmin($id) {
+        $query = $this->db->prepare('UPDATE users SET role=0 WHERE id=?');
+        $user = $query->execute([$id]);
         return $user;
     }
 }

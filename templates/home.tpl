@@ -22,13 +22,15 @@
                     <div class="col-sm-12 col-md-6 col-lg-4 inmueble-card">
                         <div class="row">
                             <div class="col-sm-12">
-                                <img class="single-mini-img" src="resources/imgs/inmueble.jpg" >
+                                <a href="ver/{$single->id}">
+                                    <img class="single-mini-img" src="resources/imgs/inmueble.jpg" >
+                                </a>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
                                 <hr>
-                                <h4>{$single->titulo}</h4>
+                                <a href="ver/{$single->id}"><h4>{$single->titulo}</h4></a>
                                 <hr>
                                 <p class="precio">U$D: {$single->precio}</p>
                             </div>

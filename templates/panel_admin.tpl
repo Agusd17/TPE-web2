@@ -22,11 +22,13 @@
                 <ul class="nav nav-tabs">
                     <li class="active admin-nav"><a data-toggle="tab" href="#menu0">Listado de inmuebles</a></li>
                     |
-                    <li class=" admin-nav"><a data-toggle="tab" href="#menu1">Nuevo inmueble</a></li>
+                    <li class="admin-nav"><a data-toggle="tab" href="#menu1">Nuevo inmueble</a></li>
                     |
-                    <li class=" admin-nav"><a data-toggle="tab" href="#menu2">Listado de categorías</a></li>
+                    <li class="admin-nav"><a data-toggle="tab" href="#menu2">Listado de categorías</a></li>
                     |
-                    <li class=" admin-nav"><a data-toggle="tab" href="#menu3">Nueva categoría</a></li>
+                    <li class="admin-nav"><a data-toggle="tab" href="#menu3">Nueva categoría</a></li>
+                    |
+                    <li class="admin-nav"><a data-toggle="tab" href="#menu4">Listado de usuarios</a></li>
                   </ul>
                   
                   <div class="tab-content">
@@ -38,18 +40,18 @@
                                 <hr>
                             </div>
                         </div>
-                            {foreach from=$inmuebles item=single}
-                            <div class="row single-admin">
-                                <div class="col-sm-12 col-md-7">
-                                    <span>{$single->titulo}</span>
-                                </div>
-                                <div class="col-sm-12 col-md-5 text-right">
-                                    <a class="btn btn-sm" href="ver/{$single->id}">VER</a>
-                                    <a class="btn btn-sm" href="modificar_single/{$single->id}">MODIFICAR</a>
-                                    <a class="btn danger btn-sm" href="delete_single/{$single->id}">ELIMINAR</a>
-                                </div>
+                        {foreach from=$inmuebles item=single}
+                        <div class="row single-admin">
+                            <div class="col-sm-12 col-md-7">
+                                <span>{$single->titulo}</span>
                             </div>
-                            {/foreach}
+                            <div class="col-sm-12 col-md-5 text-right">
+                                <a class="btn btn-sm" href="ver/{$single->id}">VER</a>
+                                <a class="btn btn-sm" href="modificar_single/{$single->id}">MODIFICAR</a>
+                                <a class="btn danger btn-sm" href="delete_single/{$single->id}">ELIMINAR</a>
+                            </div>
+                        </div>
+                        {/foreach}
                     </div>
                     <div id="menu1" class="tab-pane fade">
                         <div class="row">
@@ -105,7 +107,50 @@
                             </div>
                         </div>
                     </div>
-                  </div>
+                    <div id="menu4" class="tab-pane fade">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <hr>
+                                <h3 class="text-center">Usuarios</h3>
+                                <hr>
+                            </div>
+                        </div>
+                        {foreach from=$usuarios item=user}
+                            <div class="row single-admin">
+                                <div class="col-sm-12 col-md-4">
+                                    <span>{$user->username}</span>
+                                </div>
+                                <div class="col-sm-12 col-md-4 text-center">
+                                    {if ($user->role === '0')}
+                                    <span class="badge badge-primary">No es administrador</span>
+                                    {else if ($user->role === '1')}
+                                    <span class="badge badge-success">Es administrador</span>
+                                    {else}
+                                    <span class="badge badge-danger">Rol fuera de rango</span>
+                                    {/if}
+                                </div>
+                                <div class="col-sm-12 col-md-4 text-right">
+                                    {if (($user->role === '0') && ($smarty.session.ID_USER != $user->id))}
+                                    <a class="btn btn-primary btn-sm" 
+                                        onclick="if (confirm('¡CUIDADO! Está a punto de otorgarle permisos de administrador al usuario {$user->username}')) 
+                                        window.location.href='give_admin/{$user->id}'">
+                                        Dar permiso de Administrador</a>
+                                    {else if ($smarty.session.ID_USER === $user->id)} 
+                                    <span class="badge badge-danger">No puede cambiar sus propios permisos!</span>
+                                    {/if}
+                                    {if (($user->role === '1') && ($smarty.session.ID_USER != $user->id))}
+                                    <a class="btn btn-warning btn-sm" 
+                                        onclick="if (confirm('¡CUIDADO! Está a punto de quitarle permisos de administrador al usuario {$user->username}')) 
+                                        window.location.href='remove_admin/{$user->id}'">
+                                        Quitar permiso de Administrador</a>
+                                    {else}
+
+                                    {/if}
+                                </div>
+                            </div>
+                            {/foreach}
+                    </div>
+                </div>
                 
             </div>
         </div>

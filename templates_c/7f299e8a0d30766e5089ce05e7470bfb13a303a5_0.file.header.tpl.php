@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-12-02 18:00:32
+/* Smarty version 3.1.34-dev-7, created on 2020-12-03 01:46:43
   from 'C:\xampp\htdocs\TPWeb\templates\header.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5fc7c83049eee9_69932004',
+  'unifunc' => 'content_5fc83573003f66_69885642',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '7f299e8a0d30766e5089ce05e7470bfb13a303a5' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TPWeb\\templates\\header.tpl',
-      1 => 1606928429,
+      1 => 1606956387,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5fc7c83049eee9_69932004 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5fc83573003f66_69885642 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en">
     <head>
@@ -33,6 +33,9 @@ function content_5fc7c83049eee9_69932004 (Smarty_Internal_Template $_smarty_tpl)
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <link rel="stylesheet" href="resources/css/style.css">
+        <?php echo '<script'; ?>
+ src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"><?php echo '</script'; ?>
+>
 
     </head>
     <body>
@@ -65,10 +68,12 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                   </ul>
               </li>
                 <li class="nav-item nav-button-main">
-                  <?php if (((isset($_SESSION['USER_ROLE'])) && $_SESSION['USER_ROLE'] == '1')) {?>
+                  <?php if (((isset($_SESSION['USER_ROLE'])) && ($_SESSION['USER_ROLE'] == '1'))) {?>
                   <a class="nav-link" href="panel">Panel Admin</a>
                 </li>
                 <li class="nav-item nav-button-main">
+                  <a class="nav-link" href="logout">Salir</a>
+                  <?php } elseif ((((isset($_SESSION['USER_ROLE']))) && ($_SESSION['USER_ROLE'] == '0'))) {?>
                   <a class="nav-link" href="logout">Salir</a>
                   <?php } else { ?>
                   <a class="nav-link" href="login">Login</a>
@@ -80,5 +85,8 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
               </ul>
             </div>
         </nav>
-    </header><?php }
+    </header>
+
+
+<?php }
 }

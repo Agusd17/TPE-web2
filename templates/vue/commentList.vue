@@ -1,0 +1,25 @@
+{literal}
+<section id="app">
+    <ul class="list-group mt-5">
+        <li v-for="comment in comments"
+            class="list-group-item"
+            > 
+            <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <p>Escrito por: <strong>{{ comment.author }}</strong></p>
+            </div>
+            <div class="col-sm-12 col-md-6 text-right">
+                <span class="badge" 
+                :class="{'badge-danger': comment.puntaje <= 2, 'badge-warning': comment.puntaje == 3, 'badge-success': comment.puntaje >= 4}"
+                >{{ comment.puntaje }} Estrellas</span>
+            </div>
+            <hr>
+            <div class="col-sm-12 comment-box">
+                <p>{{ comment.contenido }}</p>
+                <p v-if="permission === true">es admin</p>
+            </div>
+            </div>
+        </li>
+    </ul>
+</section>
+{/literal}

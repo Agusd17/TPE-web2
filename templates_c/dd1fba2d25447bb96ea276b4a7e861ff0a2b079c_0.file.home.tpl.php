@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-10-16 00:20:20
+/* Smarty version 3.1.34-dev-7, created on 2020-12-03 02:27:48
   from 'C:\xampp\htdocs\TPWeb\templates\home.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5f88cb2400aec6_22229287',
+  'unifunc' => 'content_5fc83f14dff7a3_70537692',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'dd1fba2d25447bb96ea276b4a7e861ff0a2b079c' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TPWeb\\templates\\home.tpl',
-      1 => 1602800416,
+      1 => 1606958867,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ),false)) {
-function content_5f88cb2400aec6_22229287 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5fc83f14dff7a3_70537692 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender('file:header.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 
@@ -53,14 +53,18 @@ $_smarty_tpl->tpl_vars['single']->do_else = false;
                     <div class="col-sm-12 col-md-6 col-lg-4 inmueble-card">
                         <div class="row">
                             <div class="col-sm-12">
-                                <img class="single-mini-img" src="resources/imgs/inmueble.jpg" >
+                                <a href="ver/<?php echo $_smarty_tpl->tpl_vars['single']->value->id;?>
+">
+                                    <img class="single-mini-img" src="resources/imgs/inmueble.jpg" >
+                                </a>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">
                                 <hr>
-                                <h4><?php echo $_smarty_tpl->tpl_vars['single']->value->titulo;?>
-</h4>
+                                <a href="ver/<?php echo $_smarty_tpl->tpl_vars['single']->value->id;?>
+"><h4><?php echo $_smarty_tpl->tpl_vars['single']->value->titulo;?>
+</h4></a>
                                 <hr>
                                 <p class="precio">U$D: <?php echo $_smarty_tpl->tpl_vars['single']->value->precio;?>
 </p>
