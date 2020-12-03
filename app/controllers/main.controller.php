@@ -22,20 +22,24 @@ class MainController {
     /**
      * Imprime la lista de inmuebles
      */
-    function showAll() {
+    function showAll($page, $itemsPerPage) {
 
+        // maneja la cantidad de items que se verán por página
+        $totalPages = $this->inmModel->getTotalPages($itemsPerPage);
         // obtiene los inmuebles y categorias del modelo
-        $inmuebles = $this->inmModel->getAll();
+        $inmuebles = $this->inmModel->getAll($page, $itemsPerPage);
 
             
         //actualizo la vista
-        $this->view->showAll($inmuebles, $this->categorias);
+        $this->view->showAll($page, $totalPages, $inmuebles, $this->categorias);
     }
 
-    public function showBySearch() {
-        $key = $_POST['search-key'];
-        $inmuebles = $this->inmModel->getAllByKey($key);
-        $this->view->showAll($inmuebles, $this->categorias);
+    public function showBySearch($key, $page, $itemsPerPage) {
+
+        $totalPages = $this->inmModel->getTotalPages($itemsPerPage);
+
+        $inmuebles = $this->inmModel->getAllByKey($key, $page, $itemsPerPage);
+        $this->view->showAll(1, $totalPages, $inmuebles, $this->categorias);
     }
 
     /**

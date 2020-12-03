@@ -6,10 +6,12 @@ class MainView {
 
 
 
-    function showAll($inmuebles, $categorias) {
+    function showAll($page = 1, $totalPages, $inmuebles, $categorias) {
 
         $smarty = new Smarty();
 
+        $smarty->assign('totalPages', $totalPages);
+        $smarty->assign('pageNumber', $page);
         $smarty->assign('inmuebles', $inmuebles);
         $smarty->assign('categorias', $categorias);
         $smarty->display('templates/home.tpl');

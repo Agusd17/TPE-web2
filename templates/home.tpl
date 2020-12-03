@@ -65,6 +65,18 @@
                             </div>
                         </div>
                         {/foreach}
+                        <br>
+                        <div class="col-sm-12 text-center button-container">
+                            {if ($pageNumber > 1)}
+                            <a href="?page=1" class="badge badge-info" role="button"><< Primer página</a>
+                            <a href="?page={$pageNumber-1}" class="badge badge-primary" role="button">< Página Anterior</a>
+                            {/if}
+                            {if ($pageNumber < $totalPages)}
+                            <a href="?page={$pageNumber+1}" class="badge badge-primary" role="button">Página Siguiente ></a>
+                            <a href="?page={$totalPages}"class="badge badge-info" role="button">Útlima Página >></a>
+                            {/if}
+                        </div>
+                        <br>
                     {else}
                     <div class="col-sm-12 text-center">
                         <br>

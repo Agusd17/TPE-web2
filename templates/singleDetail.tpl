@@ -50,8 +50,10 @@
                         {include file="vue/commentList.vue"}
                     </div>
                     <input type="hidden" value="{$single->id}" id="inmID" name="inmID">
-                    {if (isset($smarty.session.ID_USER))}
+                    {if (isset($smarty.session.))}
+                    {/if}
                     <input type="hidden" value="{$smarty.session.USER_NAME}" id="authorName" name="authorName">
+                    {if (isset($smarty.session.ID_USER))}
                     <input type="hidden" value="{$smarty.session.USER_ROLE}" id="rol" name="rol">
                     <div class="col-sm-12">
                         {include 'form_comment.tpl' upload=false}

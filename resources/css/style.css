@@ -123,3 +123,7 @@ a:hover {
 .no-comments {
     padding:5% 25%;
 }
+.button-container {
+    padding: 30px 0 30px;
+    height:90px;
+}

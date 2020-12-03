@@ -25,41 +25,91 @@ class InmuebleModel {
     //     return $db;
     // }
 
+    public function getTotalPages($itemsPerPage) {
+
+        // consigo la cantidad de filas que tiene la tabla inmueble
+        $totalRows = $this->db->prepare('SELECT * FROM inmueble');
+        $totalRows->execute();
+
+        $totalPages = ceil($totalRows->rowCount() / $itemsPerPage);
+        return $totalPages;
+    }
+
     /**
      * Devuelve todos los inmuebles que existen actualmente.
      */
-    function getAll() {
+    public function getAll($page = 1, $itemsPerPage = 6) {
 
-        // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
-        $query = $this->db->prepare('SELECT * FROM inmueble ORDER BY id DESC');
-        $query->execute();
+        $pageNumber = intval($page);
+        $offset = ($pageNumber-1) * $itemsPerPage;
 
-        // 3. Obtengo la respuesta con un fetchAll (porque son muchos)
-        $inmuebles = $query->fetchAll(PDO::FETCH_OBJ);
+        $totalPages = $this->getTotalPages($itemsPerPage);
 
+
+        $query = 'SELECT * FROM inmueble';
+        $query .= " LIMIT :min, :max";
+        $params[':min'] = $offset; // INTEGER VALUE
+        $params[':max'] = $itemsPerPage; // INTEGER VALUE
+
+        $dbRequest = $this->db->prepare($query);
+
+        foreach($params as $key => $value)
+        {
+            if(is_int($value))
+            {
+                $dbRequest->bindValue($key, $value, PDO::PARAM_INT);
+            }
+            else
+            {
+                $dbRequest->bindValue($key, $value, PDO::PARAM_STR);
+            }
+        }
+        $dbRequest->execute();
+        $inmuebles = $dbRequest->fetchAll(PDO::FETCH_OBJ);
         return $inmuebles;
+
+
     }
     
     /**
      * Devuelve todos los inmuebles que coincidan con la key
      */
-    function getAllByKey($key) {
+    function getAllByKey($key, $page, $itemsPerPage) {
+
         $numkey = $key;
         $stringkey = '%'.$key.'%';
+        $offset = 0;
 
-        // 2. Enviar la consulta (2 sub-pasos: prepare y execute)
-        $query = $this->db->prepare(
-            'SELECT * FROM inmueble WHERE titulo LIKE ? 
-            OR descripcion LIKE ? 
-            OR direccion LIKE ? 
-            OR metros_cuadrados LIKE ? 
-            OR precio LIKE ? 
-            ORDER BY id DESC');
-        $query->execute([$stringkey,$stringkey,$stringkey,$numkey,$numkey]);
+        $query = 'SELECT * FROM inmueble WHERE titulo LIKE :titulo OR descripcion 
+        LIKE :descript OR direccion LIKE :direcc OR metros_cuadrados 
+        LIKE :mts OR precio LIKE :precio ORDER BY id DESC LIMIT :min,:max';
+        $params[':min'] = $offset; // INTEGER VALUE
+        $params[':max'] = $itemsPerPage; // INTEGER VALUE
+        //$query .= ' WHERE titulo LIKE :titulo OR descripcion LIKE :descript OR direccion LIKE :direcc OR metros_cuadrados LIKE :mts OR precio LIKE :precio';
+        $params[':titulo'] = $stringkey; // INTEGER VALUE
+        $params[':descript'] = $stringkey; // INTEGER VALUE
+        $params[':direcc'] = $stringkey; // INTEGER VALUE
+        $params[':mts'] = $numkey; // INTEGER VALUE
+        $params[':precio'] = $numkey; // INTEGER VALUE
+        //$query .= ' LIMIT 1, 6';
+        //$query .= ' ORDER BY id DESC';
+        
+        $dbRequest = $this->db->prepare($query);
+        
+        foreach($params as $key => $value)
+        {
+            if(is_int($value))
+            {
+                $dbRequest->bindValue($key, $value, PDO::PARAM_INT);
+            }
+            else
+            {
+                $dbRequest->bindValue($key, $value, PDO::PARAM_STR);
+            }
+        }
 
-        // 3. Obtengo la respuesta con un fetchAll (porque son muchos)
-        $inmuebles = $query->fetchAll(PDO::FETCH_OBJ);
-
+        $dbRequest->execute();
+        $inmuebles = $dbRequest->fetchAll(PDO::FETCH_OBJ);
         return $inmuebles;
     }
 

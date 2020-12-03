@@ -17,6 +17,24 @@ if (!empty($_GET['action'])) {
 // parsea la accion Ej: suma/1/2 --> ['suma', 1, 2]
 $params = explode('/', $action);
 
+
+// maneja la paginación
+$itemsPerPage = 6;
+if (!empty($_GET['page'])) {
+    $pageNumber = $_GET['page'];
+} else {
+    $pageNumber = '1';
+}
+
+
+// maneja el buscador selectivo
+if (!empty($_GET['search-key'])) {
+    $searchKey = $_GET['search-key'];
+} else {
+    $searchKey = '';
+}
+$queries = explode('/', $searchKey);
+
 // determina que camino seguir según la acción
 switch ($params[0]) {
     case 'login':
@@ -60,11 +78,14 @@ switch ($params[0]) {
         break;
     case 'home':
         $controller = new MainController();
-        $controller->showAll();
+        $page = $pageNumber;
+        $controller->showAll($page, $itemsPerPage);
         break;
     case 'home_search':
         $controller = new MainController();
-        $controller->showBySearch();
+        $key = $queries[0];
+        $page = 1; // hardcodeada para testear
+        $controller->showBySearch($key, $page, $itemsPerPage);
         break;
     case 'cat':
         $controller = new MainController();

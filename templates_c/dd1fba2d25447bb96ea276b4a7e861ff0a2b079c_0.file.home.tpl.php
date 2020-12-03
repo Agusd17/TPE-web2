@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.34-dev-7, created on 2020-12-03 04:15:57
+/* Smarty version 3.1.34-dev-7, created on 2020-12-03 06:02:12
   from 'C:\xampp\htdocs\TPWeb\templates\home.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.34-dev-7',
-  'unifunc' => 'content_5fc8586d7ce780_96976133',
+  'unifunc' => 'content_5fc8715408c4c7_19132645',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'dd1fba2d25447bb96ea276b4a7e861ff0a2b079c' => 
     array (
       0 => 'C:\\xampp\\htdocs\\TPWeb\\templates\\home.tpl',
-      1 => 1606965354,
+      1 => 1606971729,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ),false)) {
-function content_5fc8586d7ce780_96976133 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5fc8715408c4c7_19132645 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender('file:header.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 
@@ -115,6 +115,21 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         <?php
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                        <br>
+                        <div class="col-sm-12 text-center button-container">
+                            <?php if (($_smarty_tpl->tpl_vars['pageNumber']->value > 1)) {?>
+                            <a href="?page=1" class="badge badge-info" role="button"><< Primer página</a>
+                            <a href="?page=<?php echo $_smarty_tpl->tpl_vars['pageNumber']->value-1;?>
+" class="badge badge-primary" role="button">< Página Anterior</a>
+                            <?php }?>
+                            <?php if (($_smarty_tpl->tpl_vars['pageNumber']->value < $_smarty_tpl->tpl_vars['totalPages']->value)) {?>
+                            <a href="?page=<?php echo $_smarty_tpl->tpl_vars['pageNumber']->value+1;?>
+" class="badge badge-primary" role="button">Página Siguiente ></a>
+                            <a href="?page=<?php echo $_smarty_tpl->tpl_vars['totalPages']->value;?>
+"class="badge badge-info" role="button">Útlima Página >></a>
+                            <?php }?>
+                        </div>
+                        <br>
                     <?php } else { ?>
                     <div class="col-sm-12 text-center">
                         <br>
